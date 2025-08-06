@@ -1,9 +1,438 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="AdvancedWorkloadGenerator.MainWindow"
-        Title="AdvancedWorkloadGenerator">
-    Welcome to Avalonia!
+<Window
+    x:Class="AdvancedWorkloadGenerator.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AdvancedWorkloadGenerator"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Advanced Workload Generator"
+    d:DesignHeight="700"
+    d:DesignWidth="1080"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <!--  Bottom Status Bar  -->
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+
+        <!--  Bottom Status Bar  -->
+        <Border Grid.Row="1" Background="#007ACC">
+            <Grid Margin="10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Status Text  -->
+                <TextBlock
+                    x:Name="StatusText"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    FontSize="11"
+                    Foreground="White"
+                    Text="Ready" />
+
+                <!--  Progress Bar  -->
+                <ProgressBar
+                    x:Name="ProgressBar"
+                    Grid.Column="1"
+                    Height="12"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Background="#005A9E"
+                    Foreground="#FFE6CC"
+                    IsVisible="False" />
+
+                <!--  Connection Status  -->
+                <StackPanel
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Ellipse
+                        x:Name="ConnectionStatusIndicator"
+                        Width="8"
+                        Height="8"
+                        Margin="0,0,5,0"
+                        Fill="Gray" />
+                    <TextBlock
+                        x:Name="ConnectionStatusText"
+                        FontSize="11"
+                        Foreground="White"
+                        Text="No Connection" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!--  Main Content Area  -->
+        <Grid x:Name="MainGrid" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <!--  Left Panel - Database Selection  -->
+                <ColumnDefinition Width="250" MinWidth="200" />
+                <ColumnDefinition Width="Auto" />
+                <!--  Center Panel - Diagram  -->
+                <ColumnDefinition Width="*" MinWidth="300" />
+                <ColumnDefinition Width="Auto" />
+                <!--  Right Panel - Query Generation  -->
+                <ColumnDefinition Width="250" MinWidth="200" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Left Panel - Database Selection  -->
+            <Border
+                x:Name="LeftPanel"
+                Grid.Column="0"
+                Background="#252526"
+                BorderBrush="#3E3E42"
+                BorderThickness="0,0,1,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Panel Header  -->
+                    <Border
+                        Grid.Row="0"
+                        Height="35"
+                        Background="#2D2D30">
+                        <Grid Margin="10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontSize="11"
+                                FontWeight="SemiBold"
+                                Foreground="White"
+                                Text="DATABASE EXPLORER" />
+
+                            <!--  Panel Actions  -->
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="3">
+                                <Button
+                                    x:Name="AddConnectionButton"
+                                    Width="20"
+                                    Height="20"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="AddConnectionButton_Click"
+                                    Foreground="White"
+                                    ToolTip.Tip="Add Connection">
+                                    <Path
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                                        Fill="White" />
+                                </Button>
+                                <Button
+                                    x:Name="EditConnectionButton"
+                                    Width="20"
+                                    Height="20"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="EditConnectionButton_Click"
+                                    Foreground="White"
+                                    IsEnabled="False"
+                                    ToolTip.Tip="Edit Connection">
+                                    <Path
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+                                        Fill="White" />
+                                </Button>
+                                <Button
+                                    x:Name="ResetAnalysisButton"
+                                    Width="20"
+                                    Height="20"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="ResetAnalysisButton_Click"
+                                    Foreground="White"
+                                    IsEnabled="False"
+                                    ToolTip.Tip="Reset and Re-analyze Database">
+                                    <Path
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+                                        Fill="White" />
+                                </Button>
+                                <Button
+                                    x:Name="DeleteConnectionButton"
+                                    Width="20"
+                                    Height="20"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="DeleteConnectionButton_Click"
+                                    Foreground="White"
+                                    IsEnabled="False"
+                                    ToolTip.Tip="Delete Connection">
+                                    <Path
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84L13.962 3.5H14.5a.5.5 0 0 0 0-1h-1.006a.58.58 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
+                                        Fill="White" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!--  Connections List  -->
+                    <ListBox
+                        x:Name="ConnectionsListBox"
+                        Grid.Row="1"
+                        Margin="8"
+                        Background="Transparent"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectionChanged="ConnectionsListBox_SelectionChanged"
+                        SelectionMode="Single">
+                        <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Margin" Value="0,0,0,8" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                            </Style>
+                            <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                                <Setter Property="Background" Value="#0078D4" />
+                            </Style>
+                            <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="#404040" />
+                            </Style>
+                            <Style Selector="ListBoxItem:selected:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="#106EBE" />
+                            </Style>
+                        </ListBox.Styles>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type local:ConnectionDisplayItem}">
+                                <Border
+                                    Padding="12,8"
+                                    Background="Transparent"
+                                    BorderThickness="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--  Connection Info  -->
+                                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                            <TextBlock
+                                                Margin="0,0,0,2"
+                                                FontSize="13"
+                                                FontWeight="SemiBold"
+                                                Foreground="White"
+                                                Text="{Binding DisplayText}" />
+                                            <TextBlock
+                                                Margin="0,0,0,4"
+                                                FontSize="11"
+                                                Foreground="#B0B0B0"
+                                                LineHeight="14"
+                                                Text="{Binding SubText}"
+                                                TextWrapping="Wrap" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <!--  Status indicator dot  -->
+                                                <Ellipse
+                                                    Grid.Column="0"
+                                                    Width="6"
+                                                    Height="6"
+                                                    Margin="0,0,6,0"
+                                                    VerticalAlignment="Center">
+                                                    <Ellipse.Fill>
+                                                        <SolidColorBrush Color="{Binding StatusText, Converter={x:Static local:StatusToColorConverter.Instance}}" />
+                                                    </Ellipse.Fill>
+                                                </Ellipse>
+
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="10"
+                                                    FontWeight="Medium"
+                                                    Foreground="#4EC9B0"
+                                                    Text="{Binding StatusText}" />
+                                            </Grid>
+                                        </StackPanel>
+
+                                        <!--  Database Type Badge  -->
+                                        <Border
+                                            Grid.Column="1"
+                                            Margin="8,0,0,0"
+                                            Padding="6,2"
+                                            VerticalAlignment="Top"
+                                            Background="#404040"
+                                            CornerRadius="8">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="9"
+                                                FontWeight="SemiBold"
+                                                Foreground="#E0E0E0"
+                                                Text="{Binding Connection.DatabaseType}" />
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <!--  Left Splitter  -->
+            <GridSplitter
+                x:Name="LeftSplitter"
+                Grid.Column="1"
+                Width="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="#3E3E42" />
+
+            <!--  Center Panel - Diagram  -->
+            <Border
+                Grid.Column="2"
+                Background="#1E1E1E"
+                BorderBrush="#3E3E42"
+                BorderThickness="0,0,1,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Panel Header  -->
+                    <Border
+                        Grid.Row="0"
+                        Height="35"
+                        Background="#2D2D30">
+                        <TextBlock
+                            Margin="15,0"
+                            VerticalAlignment="Center"
+                            FontSize="11"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            Text="DATABASE DIAGRAM" />
+                    </Border>
+
+                    <!--  Diagram Control  -->
+                    <ContentControl x:Name="DiagramContainer" Grid.Row="1" />
+                </Grid>
+            </Border>
+
+            <!--  Right Splitter  -->
+            <GridSplitter
+                x:Name="RightSplitter"
+                Grid.Column="3"
+                Width="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="#3E3E42" />
+
+            <!--  Right Panel - Query Generation  -->
+            <Border
+                x:Name="RightPanel"
+                Grid.Column="4"
+                Background="#252526"
+                BorderBrush="#3E3E42"
+                BorderThickness="1,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Panel Header  -->
+                    <Border
+                        Grid.Row="0"
+                        Height="35"
+                        Background="#2D2D30">
+                        <TextBlock
+                            Margin="15,0"
+                            VerticalAlignment="Center"
+                            FontSize="11"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            Text="QUERY GENERATOR" />
+                    </Border>
+
+                    <!--  Query Generation Content  -->
+                    <ScrollViewer Grid.Row="1" Margin="10">
+                        <StackPanel Spacing="15">
+                            <StackPanel HorizontalAlignment="Center" Spacing="8">
+                                <Border
+                                    Width="48"
+                                    Height="48"
+                                    HorizontalAlignment="Center"
+                                    Background="#0E639C"
+                                    CornerRadius="6"
+                                    Opacity="0.7">
+                                    <Path
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                                        Fill="White"
+                                        RenderTransform="scale(1.8)" />
+                                </Border>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    Foreground="#CCCCCC"
+                                    Text="Query Generation" />
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    HorizontalAlignment="Center"
+                                    FontSize="11"
+                                    Foreground="#858585"
+                                    Text="Generate workload queries based on database schema and patterns"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <!--  Placeholder Controls  -->
+                            <Border
+                                MinHeight="120"
+                                Padding="15"
+                                Background="#2D2D30"
+                                CornerRadius="5">
+                                <StackPanel Spacing="8">
+                                    <TextBlock
+                                        FontSize="12"
+                                        FontWeight="SemiBold"
+                                        Foreground="#CCCCCC"
+                                        Text="Workload Configuration" />
+                                    <TextBlock
+                                        FontSize="10"
+                                        Foreground="#858585"
+                                        Text="• Query Types" />
+                                    <TextBlock
+                                        FontSize="10"
+                                        Foreground="#858585"
+                                        Text="• Complexity Levels" />
+                                    <TextBlock
+                                        FontSize="10"
+                                        Foreground="#858585"
+                                        Text="• Performance Targets" />
+                                    <TextBlock
+                                        Margin="0,10,0,0"
+                                        FontSize="10"
+                                        FontStyle="Italic"
+                                        Foreground="#4EC9B0"
+                                        Text="Coming Soon..." />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
 </Window>

@@ -1,0 +1,72 @@
+<UserControl x:Class="AdvancedWorkloadGenerator.Controls.DatabaseDiagramControl"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:go="clr-namespace:Northwoods.GoXam;assembly=Northwoods.GoDiagram.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
+    
+    <Grid>
+        <!-- Progress overlay -->
+        <Border x:Name="ProgressOverlay"
+                Background="#AA000000"
+                IsVisible="False">
+            <StackPanel HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Spacing="15">
+                <ProgressBar Width="200" 
+                           Height="4"
+                           IsIndeterminate="True"
+                           Foreground="#4EC9B0" />
+                <TextBlock x:Name="ProgressText"
+                          Text="Analyzing database..."
+                          Foreground="White"
+                          FontSize="14"
+                          HorizontalAlignment="Center" />
+            </StackPanel>
+        </Border>
+        
+        <!-- Diagram container -->
+        <ScrollViewer x:Name="DiagramScrollViewer"
+                     HorizontalScrollBarVisibility="Auto"
+                     VerticalScrollBarVisibility="Auto">
+            <Border x:Name="DiagramPanel"
+                   Background="#1E1E1E"
+                   MinWidth="400"
+                   MinHeight="300">
+                <!-- Diagram will be added programmatically -->
+            </Border>
+        </ScrollViewer>
+        
+        <!-- Empty state -->
+        <StackPanel x:Name="EmptyState"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   IsVisible="True">
+            <Border Background="#0E639C"
+                   CornerRadius="8"
+                   Width="80" Height="80"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,15"
+                   Opacity="0.6">
+                <Path Fill="White"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      RenderTransform="scale(2.5)"
+                      Data="M4.318 2.687C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4c0-.374.356-.875 1.318-1.313ZM13 5.698V7c0 .374-.356.875-1.318 1.313C10.766 8.729 9.464 9 8 9s-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 5.698ZM14 4c0-1.313-.967-2.5-2.682-3.113C10.363.23 9.223 0 8 0S5.637.23 4.682.887C2.967 1.5 2 2.687 2 4v9c0 1.313.967 2.5 2.682 3.113C5.637 16.77 6.777 17 8 17s2.363-.23 3.318-.887C12.967 15.5 14 14.313 14 13V4Zm-1 4.698V10c0 .374-.356.875-1.318 1.313C10.766 11.729 9.464 12 8 12s-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.711 6.427 10 8 10s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 8.698Zm0 3V13c0 .374-.356.875-1.318 1.313C10.766 14.729 9.464 15 8 15s-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.711 6.427 13 8 13s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 11.698Z"/>
+            </Border>
+            <TextBlock Text="Database Schema Diagram"
+                      FontSize="18"
+                      FontWeight="SemiBold"
+                      Foreground="#CCCCCC"
+                      HorizontalAlignment="Center"
+                      Margin="0,0,0,8" />
+            <TextBlock Text="Select a database connection to visualize the schema"
+                      FontSize="12"
+                      Foreground="#858585"
+                      HorizontalAlignment="Center"
+                      TextAlignment="Center"
+                      TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</UserControl>

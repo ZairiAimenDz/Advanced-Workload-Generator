@@ -1,4 +1,5 @@
 ﻿using AdvancedWorkloadGenerator.Core.Models.Wrappers;
+using Microsoft.Extensions.Logging;
 
 namespace AdvancedWorkloadGenerator.Core.Interfaces
 {

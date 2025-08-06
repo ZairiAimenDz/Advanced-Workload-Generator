@@ -1,0 +1,420 @@
+<Window
+    x:Class="AdvancedWorkloadGenerator.ConnectionEditing"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Connection Editor"
+    MinWidth="600"
+    MinHeight="750"
+    d:DesignHeight="700"
+    d:DesignWidth="650"
+    Background="#1E1E1E"
+    CanResize="True"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+
+    <Window.Styles>
+        <Style Selector="TextBlock.SectionHeader">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#CCCCCC" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+        <Style Selector="TextBlock.FieldLabel">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="#CCCCCC" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="TextBlock.ErrorText">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="#FF6B6B" />
+            <Setter Property="Margin" Value="0,4,0,0" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style Selector="TextBlock.InfoText">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="#9CA3AF" />
+            <Setter Property="Margin" Value="0,4,0,0" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#2D2D30" />
+            <Setter Property="BorderBrush" Value="#3E3E42" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="#0E639C" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        <Style Selector="TextBox.Error">
+            <Setter Property="BorderBrush" Value="#FF6B6B" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="#2D2D30" />
+            <Setter Property="BorderBrush" Value="#3E3E42" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+        <Style Selector="ComboBox:focus">
+            <Setter Property="BorderBrush" Value="#0E639C" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        <Style Selector="NumericUpDown">
+            <Setter Property="Background" Value="#2D2D30" />
+            <Setter Property="BorderBrush" Value="#3E3E42" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+        <Style Selector="NumericUpDown:focus">
+            <Setter Property="BorderBrush" Value="#0E639C" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#0E639C" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="18,10" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button:pointerover">
+            <Setter Property="Background" Value="#1177BB" />
+        </Style>
+        <Style Selector="Button:pressed">
+            <Setter Property="Background" Value="#0A4A73" />
+        </Style>
+        <Style Selector="Button:disabled">
+            <Setter Property="Background" Value="#4A4A4A" />
+            <Setter Property="Foreground" Value="#888888" />
+            <Setter Property="Cursor" Value="Arrow" />
+        </Style>
+        <Style Selector="Button.Secondary">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="#3E3E42" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="#CCCCCC" />
+        </Style>
+        <Style Selector="Button.Secondary:pointerover">
+            <Setter Property="Background" Value="#3E3E42" />
+        </Style>
+        <Style Selector="Button.Secondary:pressed">
+            <Setter Property="Background" Value="#2A2A2A" />
+        </Style>
+        <Style Selector="Button.Danger">
+            <Setter Property="Background" Value="#DC3545" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Button.Danger:pointerover">
+            <Setter Property="Background" Value="#C82333" />
+        </Style>
+        <Style Selector="Button.Success">
+            <Setter Property="Background" Value="#28A745" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Button.Success:pointerover">
+            <Setter Property="Background" Value="#218838" />
+        </Style>
+        <Style Selector="ProgressBar">
+            <Setter Property="Background" Value="#3E3E42" />
+            <Setter Property="Foreground" Value="#0E639C" />
+            <Setter Property="Height" Value="4" />
+            <Setter Property="CornerRadius" Value="2" />
+        </Style>
+    </Window.Styles>
+
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!--  Header  -->
+        <Border
+            Grid.Row="0"
+            Height="50"
+            Background="#2D2D30"
+            BorderBrush="#3E3E42"
+            BorderThickness="0,0,0,1"
+            DockPanel.Dock="Top">
+            <Grid Margin="20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Database Icon  -->
+                <Border
+                    Grid.Column="0"
+                    Width="32"
+                    Height="32"
+                    Margin="0,0,15,0"
+                    VerticalAlignment="Center"
+                    Background="#0E639C"
+                    CornerRadius="4">
+                    <Path
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Data="M4.318 2.687C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4c0-.374.356-.875 1.318-1.313ZM13 5.698V7c0 .374-.356.875-1.318 1.313C10.766 8.729 9.464 9 8 9s-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 5.698ZM14 4c0-1.313-.967-2.5-2.682-3.113C10.363.23 9.223 0 8 0S5.637.23 4.682.887C2.967 1.5 2 2.687 2 4v9c0 1.313.967 2.5 2.682 3.113C5.637 16.77 6.777 17 8 17s2.363-.23 3.318-.887C12.967 15.5 14 14.313 14 13V4Zm-1 4.698V10c0 .374-.356.875-1.318 1.313C10.766 11.729 9.464 12 8 12s-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.711 6.427 10 8 10s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 8.698Zm0 3V13c0 .374-.356.875-1.318 1.313C10.766 14.729 9.464 15 8 15s-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.711 6.427 13 8 13s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 11.698Z"
+                        Fill="White" />
+                </Border>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Foreground="White"
+                        Text="Database Connection Editor" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="#CCCCCC"
+                        Text="Configure your database connection settings" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!--  Content Area  -->
+        <ScrollViewer
+            Grid.Row="1"
+            Padding="30"
+            VerticalAlignment="Stretch"
+            Background="#1E1E1E">
+            <StackPanel>
+
+                <!--  Basic Information Section  -->
+                <StackPanel>
+                    <TextBlock Classes="SectionHeader" Text="Basic Information" />
+
+                    <Grid ColumnDefinitions="*,20,*" RowDefinitions="Auto,15,Auto">
+                        <!--  Connection Name  -->
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <TextBlock Classes="FieldLabel" Text="Connection Name" />
+                            <TextBox
+                                x:Name="NameTextBox"
+                                TabIndex="1"
+                                Watermark="Enter a unique connection name..." />
+                            <TextBlock
+                                x:Name="NameErrorText"
+                                Classes="ErrorText"
+                                IsVisible="False" />
+                        </StackPanel>
+
+                        <!--  Database Type  -->
+                        <StackPanel Grid.Row="0" Grid.Column="2">
+                            <TextBlock Classes="FieldLabel" Text="Database Type" />
+                            <ComboBox
+                                x:Name="DatabaseTypeComboBox"
+                                HorizontalAlignment="Stretch"
+                                TabIndex="2" />
+                            <TextBlock Classes="InfoText" Text="Currently only PostgreSQL is supported" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!--  Server Configuration Section  -->
+                <StackPanel>
+                    <TextBlock Classes="SectionHeader" Text="Server Configuration" />
+
+                    <Grid ColumnDefinitions="2*,15,*,15,2*" RowDefinitions="Auto,15,Auto">
+                        <!--  Host  -->
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <TextBlock Classes="FieldLabel" Text="Host/Server" />
+                            <TextBox
+                                x:Name="HostTextBox"
+                                TabIndex="3"
+                                Watermark="localhost" />
+                            <TextBlock
+                                x:Name="HostErrorText"
+                                Classes="ErrorText"
+                                IsVisible="False" />
+                        </StackPanel>
+
+                        <!--  Port  -->
+                        <StackPanel Grid.Row="0" Grid.Column="2">
+                            <TextBlock Classes="FieldLabel" Text="Port" />
+                            <NumericUpDown
+                                x:Name="PortNumericUpDown"
+                                Maximum="65535"
+                                Minimum="1"
+                                ShowButtonSpinner="True"
+                                TabIndex="4"
+                                Value="5432" />
+                            <TextBlock Classes="InfoText" Text="Default: 5432" />
+                        </StackPanel>
+
+                        <!--  Database Name  -->
+                        <StackPanel Grid.Row="0" Grid.Column="4">
+                            <TextBlock Classes="FieldLabel" Text="Database Name" />
+                            <TextBox
+                                x:Name="DatabaseNameTextBox"
+                                TabIndex="5"
+                                Watermark="Enter database name..." />
+                            <TextBlock
+                                x:Name="DatabaseNameErrorText"
+                                Classes="ErrorText"
+                                IsVisible="False" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!--  Authentication Section  -->
+                <StackPanel>
+                    <TextBlock Classes="SectionHeader" Text="Authentication" />
+
+                    <Grid ColumnDefinitions="*,20,*" RowDefinitions="Auto,15,Auto">
+                        <!--  Username  -->
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <TextBlock Classes="FieldLabel" Text="Username" />
+                            <TextBox
+                                x:Name="UsernameTextBox"
+                                TabIndex="6"
+                                Watermark="Enter username..." />
+                            <TextBlock
+                                x:Name="UsernameErrorText"
+                                Classes="ErrorText"
+                                IsVisible="False" />
+                        </StackPanel>
+
+                        <!--  Password  -->
+                        <StackPanel Grid.Row="0" Grid.Column="2">
+                            <TextBlock Classes="FieldLabel" Text="Password" />
+                            <Grid>
+                                <TextBox
+                                    x:Name="PasswordTextBox"
+                                    PasswordChar="*"
+                                    TabIndex="7"
+                                    Watermark="Enter password..." />
+                            </Grid>
+                            <TextBlock
+                                x:Name="PasswordErrorText"
+                                Classes="ErrorText"
+                                IsVisible="False" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!--  Connection String Section  -->
+                <StackPanel HorizontalAlignment="Stretch">
+                    <TextBlock Classes="SectionHeader" Text="Connection String" />
+
+                    <TextBox
+                        x:Name="ConnectionStringTextBox"
+                        Height="140"
+                        HorizontalAlignment="Stretch"
+                        AcceptsReturn="True"
+                        FontFamily="Consolas, 'Courier New', monospace"
+                        FontSize="12"
+                        TabIndex="8"
+                        TextWrapping="Wrap"
+                        Watermark="Connection string will be auto-generated" />
+                    <TextBlock
+                        x:Name="ConnectionStringErrorText"
+                        Classes="ErrorText"
+                        IsVisible="False" />
+                </StackPanel>
+
+                <!--  Test Connection Section  -->
+                <StackPanel Margin="0,10,0,0">
+                    <Grid ColumnDefinitions="Auto,20,*,Auto" RowDefinitions="Auto,10,Auto">
+                        <Button
+                            x:Name="TestConnectionButton"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Classes="Secondary"
+                            Click="TestConnectionButton_Click"
+                            Content="Test Connection"
+                            TabIndex="9" />
+
+                        <ProgressBar
+                            x:Name="TestProgressBar"
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            IsIndeterminate="True"
+                            IsVisible="False" />
+
+                        <TextBlock
+                            x:Name="StatusTextBlock"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="4"
+                            VerticalAlignment="Center"
+                            FontWeight="SemiBold"
+                            IsVisible="False" />
+                    </Grid>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!--  Footer with Action Buttons  -->
+        <Border
+            Grid.Row="2"
+            Height="80"
+            Background="#2D2D30"
+            BorderBrush="#3E3E42"
+            BorderThickness="0,1,0,0"
+            DockPanel.Dock="Bottom">
+            <Grid Margin="30,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Left side - Additional info  -->
+                <StackPanel
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        Text="💡" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="11"
+                        Foreground="#9CA3AF"
+                        Text="Test your connection before saving."
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <!--  Right side - Action buttons  -->
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="12">
+                    <Button
+                        x:Name="CancelButton"
+                        Classes="Secondary"
+                        Click="CancelButton_Click"
+                        Content="Cancel"
+                        TabIndex="10" />
+                    <Button
+                        x:Name="SaveButton"
+                        Click="SaveButton_Click"
+                        Content="Save Connection"
+                        TabIndex="11" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

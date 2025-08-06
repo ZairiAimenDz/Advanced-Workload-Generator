@@ -17,6 +17,8 @@ namespace AdvancedWorkloadGenerator.Core.Entities
         public bool IsForeignKey { get; set; } = false;
         public bool IsUnique { get; set; } = false;
         public bool HasIndex { get; set; } = false;
+        public string? IndexName { get; set; } = string.Empty;
+        public bool IsUniqueIndex { get; set; } = false;
 
         public string DefaultValue { get; set; } = string.Empty;
         public int OrdinalPosition { get; set; }

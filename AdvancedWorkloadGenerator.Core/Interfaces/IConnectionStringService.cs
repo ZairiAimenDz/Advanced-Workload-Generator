@@ -1,5 +1,6 @@
 ﻿using AdvancedWorkloadGenerator.Core.Models.DatabaseConnections;
 using AdvancedWorkloadGenerator.Core.Models.Wrappers;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
